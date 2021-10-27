@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Queue
+        {
+            constructor()
+            {
+                this.items=[];
+            }
+            enqueue(element)
+            {
+                return this.items.push(element);
+            }
+            dequeue()
+            {
+                if(this.isEmpty())
+                {
+                    return "underFlow";
+                }
+                else{
+                    return this.items.shift();
+                }
+            }
+            front()
+            {
+                if(this.isEmpty())
+                 return"No Element is there in the Queue";
+                else
+                 return this.items[0]; 
+            }
+            printQueue()
+            {
+                var str="";
+                for(let i=0;i<this.items.length;i++)
+                {
+                    str+=this.items[i]+" ";
+                }
+                return str;
+            }
+            isEmpty()
+            {
+                return this.items.length==0;
+            }
+        }
+        var q= new Queue();
+        q.enqueue(10);
+        q.enqueue(20);
+        q.enqueue(30);
+        console.log(q.printQueue());
+        q.dequeue();
+
+    </script>
+</body>
+</html>

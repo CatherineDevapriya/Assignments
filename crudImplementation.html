@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD implementation</title>
+</head>
+<style>
+    body>table{
+        width: 80%;
+    }
+    table{
+
+        border-collapse: collapse;
+    }
+    table.list
+    {
+        width: 100%;
+    }
+    th,td{
+        padding: 8px;
+        border:1px solid #ddd;
+        text-align: left;
+    }
+    tr:nth-child(even),table.list thead>tr{
+        background-color: #ccc;
+    }
+    input[type=text],input[type=number]
+    {
+        width:100%;
+        margin: 8px 0;
+        padding: 12px 20px;
+        display: inline-block;
+        border:1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type=submit]
+    {
+        width:30%;
+        margin: 8px 0;
+        padding: 12px 20px;
+        border:none;
+        border-radius: 4px;
+        background-color: #ccc;
+        color: black;
+        cursor: pointer;
+
+    }
+    form div.ba
+    {
+        text-align: right;
+
+    }
+    a{
+        cursor: pointer;
+        margin-right: 4px;
+        color: blueviolet;
+        text-decoration: underline;
+    }
+    label.ve
+    {
+        color: crimson;
+        margin-left: 4px;
+    }
+    .hide
+    {
+        display:none;
+    }
+</style>
+<script>
+    var selectedRow=null;
+    function onSubmit()
+    {
+        if(validate())
+        {
+        var formData=readData();
+        if(selectedRow==null)
+        {
+            insertData(formData);
+        }
+        else{
+            updateRecord(formData);
+        }
+        resetForm();
+        }
+    }
+    function readData()
+    {
+        var formData={};
+        formData["fname"]=document.getElementById("fname").value;
+        formData["lname"]=document.getElementById("lname").value;
+        formData["age"]=document.getElementById("age").value;
+        formData["address"]=document.getElementById("address").value;
+        return formData;
+
+    }
+    function insertData(formData)
+    {
+        var table=document.getElementById("details").getElementsByTagName("tbody")[0];
+        var newRow=table.insertRow(table.length);
+        cell0=newRow.insertCell(0);
+        cell0.innerHTML=formData.fname;
+        cell1=newRow.insertCell(1);
+        cell1.innerHTML=formData.lname;
+        cell2=newRow.insertCell(2);
+        cell2.innerHTML=formData.age;
+        cell3=newRow.insertCell(3);
+        cell3.innerHTML=formData.address;
+        cell4=newRow.insertCell(4);
+        cell4.innerHTML=`<a onclick="onEdit(this)">Edit<a>
+                         <a onclick="onDelete(this)">Delete<a>`;
+    }
+    function onEdit(td)
+    {
+        selectedRow=td.parentElement.parentElement;
+        document.getElementById("fname").value=selectedRow.cells[0].innerHTML;
+        document.getElementById("lname").value=selectedRow.cells[1].innerHTML;
+        document.getElementById("age").value=selectedRow.cells[2].innerHTML;
+        document.getElementById("address").value=selectedRow.cells[3].innerHTML;
+    }
+    function resetForm()
+    {
+        document.getElementById("fname").value="";
+        document.getElementById("lname").value="";
+        document.getElementById("age").value="";
+        document.getElementById("address").value="";
+        selectedRow=null;
+
+    }
+    function updateRecord(formData)
+    {selectedRow.cells[0].innerHTML=formData.fname;
+     selectedRow.cells[1].innerHTML=formData.lname;
+     selectedRow.cells[2].innerHTML=formData.age;
+     selectedRow.cells[3].innerHTML=formData.address;
+    }
+    function onDelete(td)
+    {
+        if(confirm("Are u sure"))
+        {
+            row=td.parentElement.parentElement;
+            document.getElementById("details").deleteRow(row.rowIndex);
+            resetForm();
+        }
+    }
+    function validate()
+    {
+        isValid =true;
+        if(document.getElementById("fname").value=="")
+        {
+            isValid=false;
+            document.getElementById("fnve").classList.remove("hide");
+        }
+        else{
+            isValid=true;
+            if(!document.getElementById("fnve").classList.contains("hide"))
+            {
+                document.getElementById("fnve").classList.add("hide");
+            }
+        }
+        return isValid;
+    }
+
+</script>
+<body>
+    <table>
+        <tr>
+            <td>
+                <form onsubmit="event.preventDefault(),onSubmit()" autocomplete="off">
+                    <div>
+                        <label>FirstName*</label><label class="ve hide" id="fnve">This field is Required</label>
+                        <input type="text" name="fname" id="fname">
+                    </div>
+                    <div>
+                        <label>LastName</label>
+                        <input type="text" name="lname" id="lname">
+                    </div>
+                    <div>
+                        <label>Age</label>
+                        <input type="number" name="age" id="age">
+                    </div>
+                    <div>
+                        <label>Address</label>
+                        <input type="text" name="address" id="address">
+                    </div>
+                    <div class="ba">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="details">
+                    <thead>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Age</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>

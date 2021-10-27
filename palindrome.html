@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function palindrome_builtin(str)
+        {
+            let s=str.toLowerCase();
+            const arr=s.split('');
+            const revarr=arr.reverse();
+            const string=revarr.join('');
+            if(s==string)
+            {
+                return "It's a Palindrome";
+            }
+            else{
+                return "It's not a Palindrome";
+
+            }
+        }
+        function palindrome(str)
+        {
+            let s=str.toLowerCase();
+            let len=s.length;
+            for(var i=0;i<len/2;i++)
+            {
+                if(s[i]!==s[len-1-i])
+                {
+                    return"It's not a Palindrome";
+                }
+                
+                
+            }
+            return"It's a Palindrome";
+
+        }
+        const str=prompt("Enter a string:");
+        console.log(palindrome(str));
+    </script>
+</body>
+</html>
